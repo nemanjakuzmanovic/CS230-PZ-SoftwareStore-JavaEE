@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <c:if test="#{login.admin eq true}">
+            <h:form class="fadeIn firstFaster">
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUserLabel_userId}"/>
+                    <h:outputText value="#{userController.selected.userId}" title="#{bundle.ViewUserTitle_userId}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userUsername}"/>
+                    <h:outputText value="#{userController.selected.userUsername}" title="#{bundle.ViewUserTitle_userUsername}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userEmail}"/>
+                    <h:outputText value="#{userController.selected.userEmail}" title="#{bundle.ViewUserTitle_userEmail}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userPassword}"/>
+                    <h:outputText value="#{userController.selected.userPassword}" title="#{bundle.ViewUserTitle_userPassword}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userFirstname}"/>
+                    <h:outputText value="#{userController.selected.userFirstname}" title="#{bundle.ViewUserTitle_userFirstname}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userLastname}"/>
+                    <h:outputText value="#{userController.selected.userLastname}" title="#{bundle.ViewUserTitle_userLastname}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userAdress}"/>
+                    <h:outputText value="#{userController.selected.userAdress}" title="#{bundle.ViewUserTitle_userAdress}"/>
+                    <h:outputText value="#{bundle.ViewUserLabel_userPhone}"/>
+                    <h:outputText value="#{userController.selected.userPhone}" title="#{bundle.ViewUserTitle_userPhone}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink class="btn btn-danger" action="#{userController.destroyAndView}" value="#{bundle.ViewUserDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" class="btn btn-success es" value="#{bundle.ViewUserEditLink}"/>
+                <br />
+                <h:commandLink class="btn btn-info es" action="#{userController.prepareCreate}" value="#{bundle.ViewUserCreateLink}" />
+                <br />
+                <h:commandLink class="btn btn-primary es" action="#{userController.prepareList}" value="#{bundle.ViewUserShowAllLink}"/>
+                <br />
+                <br />
+              
+            </h:form>
+                </c:if>
+        </ui:define>
+    </ui:composition>
+
+</html>

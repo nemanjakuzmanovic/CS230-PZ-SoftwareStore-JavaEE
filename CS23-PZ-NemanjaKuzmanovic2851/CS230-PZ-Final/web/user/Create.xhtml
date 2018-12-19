@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"></link>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Register"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+      
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <!-- Tabs Titles -->
+
+                    <!-- Icon -->
+                    <div class="fadeIn first">
+                        <c:if test="#{login.admin eq true}"><h1>Add New User</h1></c:if>
+                        <c:if test="#{login.admin eq false}"><h1>Registration</h1></c:if>
+                        
+                    </div>
+
+                    <h:panelGroup id="messagePanel" layout="block" class="text-left">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <!-- Login Form -->
+                    <h:form id="registration" class="fadeIn second">
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userUsername}" for="userUsername" />
+                        <h:inputText id="userUsername" value="#{userController.selected.userUsername}" title="#{bundle.CreateUserTitle_userUsername}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userUsername}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userEmail}" for="userEmail" />
+                        <h:inputText id="userEmail" value="#{userController.selected.userEmail}" title="#{bundle.CreateUserTitle_userEmail}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userEmail}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userPassword}" for="userPassword" />
+                        <h:inputSecret id="userPassword" value="#{userController.selected.userPassword}" title="#{bundle.CreateUserTitle_userPassword}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userPassword}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userFirstname}" for="userFirstname" />
+                        <h:inputText id="userFirstname" value="#{userController.selected.userFirstname}" title="#{bundle.CreateUserTitle_userFirstname}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userFirstname}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userLastname}" for="userLastname" />
+                        <h:inputText id="userLastname" value="#{userController.selected.userLastname}" title="#{bundle.CreateUserTitle_userLastname}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userLastname}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userAdress}" for="userAdress" />
+                        <h:inputText id="userAdress" value="#{userController.selected.userAdress}" title="#{bundle.CreateUserTitle_userAdress}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userAdress}"/>
+                        <h:outputLabel value="#{bundle.CreateUserLabel_userPhone}" for="userPhone" />
+                        <h:inputText id="userPhone" value="#{userController.selected.userPhone}" title="#{bundle.CreateUserTitle_userPhone}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userPhone}"/>
+                        <br/><br/>
+                        <c:if test="#{login.admin eq false}">
+                        <h:commandButton action="#{userController.create}" class="fadeIn fourth" value="Register" />
+                        </c:if>
+                        <c:if test="#{login.admin eq true}">
+                        <h:commandButton action="#{userController.create}" class="fadeIn fourth" value="Create User" />
+                        </c:if>
+                    </h:form>
+
+                    <!-- Remind Passowrd -->
+                    <div id="formFooter" class="fadeIn third">
+                        <c:if test="#{login.admin eq false}">
+                        <h:link outcome="/Login" class="btn btn-default" value="Login here!"/>
+                        </c:if>
+                    </div>
+
+                </div>
+
+            </div>
+     
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+

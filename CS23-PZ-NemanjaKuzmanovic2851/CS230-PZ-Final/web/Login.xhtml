@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"></link>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Login"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <c:if test="#{login.loggedIn eq false}">
+
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <!-- Tabs Titles -->
+
+                    <!-- Icon -->
+                    <div class="fadeIn first">
+                        <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+                    </div>
+
+                    <!-- Login Form -->
+                    <h:form id="registration">
+                        <h:inputText class="fadeIn second" id="email" a:placeholder="Email" value="#{login.userEmail}" required="true" requiredMessage="Email is required"/>
+                        <h:inputSecret class="fadeIn third" id="password" a:placeholder="Password" value="#{login.userPassword}" required="true" requiredMessage="Password is required"/>
+                        <h:commandButton action="#{login.login}" class="fadeIn fourth" value="Login" />
+                    </h:form>
+                    <h:panelGroup id="messagePanel" layout="block" rendered="#{! empty facesContext.maximumSeverity}">
+                        <div class="alert alert-warning text-left fadeIn fourth">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </div>
+                    </h:panelGroup> 
+                    <!-- Remind Passowrd -->
+                    <div id="formFooter" class="fadeIn fourth">
+                        <h:link outcome="/user/Create" class="btn btn-default" value="Register here!"/>
+                    </div>
+
+                </div>
+
+            </div>
+                </c:if>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

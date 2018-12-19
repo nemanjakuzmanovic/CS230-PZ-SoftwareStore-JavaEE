@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOrdersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form class="fadeIn firstFaster">
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOrdersLabel_orderId}"/>
+                    <h:outputText value="#{ordersController.selected.orderId}" title="#{bundle.ViewOrdersTitle_orderId}"/>
+                    <h:outputText value="User's ID: "/>
+                    <h:outputText value="#{ordersController.selected.userOrderId}" title="#{bundle.ViewOrdersTitle_userOrderId}"/>
+                    <h:outputText value="Software's ID: "/>
+                    <h:outputText value="#{ordersController.selected.softwareOrderId}" title="#{bundle.ViewOrdersTitle_softwareOrderId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink class="btn btn-danger es" action="#{ordersController.destroyAndView}" value="#{bundle.ViewOrdersDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" class="btn btn-success es" value="#{bundle.ViewOrdersEditLink}"/>
+                <br />
+                <h:commandLink class="btn btn-info es" action="#{ordersController.prepareCreate}" value="#{bundle.ViewOrdersCreateLink}" />
+                <br />
+                <h:commandLink class="btn btn-primary es" action="#{ordersController.prepareList}" value="#{bundle.ViewOrdersShowAllLink}"/>
+                <br />
+                <br />
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

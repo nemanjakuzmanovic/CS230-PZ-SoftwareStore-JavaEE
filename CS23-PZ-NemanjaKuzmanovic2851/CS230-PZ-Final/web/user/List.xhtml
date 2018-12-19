@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <c:if test="#{login.admin eq true}">
+            <h:form styleClass="jsfcrud_list_form" class="fadeIn first">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListUserEmpty}" rendered="#{userController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{userController.items.rowCount > 0}">
+                    <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{userController.previous}" value="#{bundle.Previous} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{userController.next}" value="#{bundle.Next} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable class="table" value="#{userController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="rows" >
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userUsername}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userUsername}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userEmail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userEmail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userPassword}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userPassword}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userFirstname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userFirstname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userLastname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userLastname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userAdress}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userAdress}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_userPhone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userPhone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink class="btn btn-warning es" action="#{userController.prepareView}" value="#{bundle.ListUserViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink class="btn btn-success es" action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink class="btn btn-danger" action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink class="btn btn-info" action="#{userController.prepareCreate}" value="#{bundle.ListUserCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+
+</html>

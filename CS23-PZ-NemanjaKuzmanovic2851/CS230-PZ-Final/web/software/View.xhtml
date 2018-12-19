@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSoftwareTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form class="fadeIn firstFaster">
+                <c:if test="#{login.loggedIn eq true}">
+                    <c:if test="#{login.admin eq true}">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{bundle.ViewSoftwareLabel_softwareId}"/>
+                            <h:outputText value="#{softwareController.selected.softwareId}" title="#{bundle.ViewSoftwareTitle_softwareId}"/>
+                            <h:outputText value="#{bundle.ViewSoftwareLabel_softwareName}"/>
+                            <h:outputText value="#{softwareController.selected.softwareName}" title="#{bundle.ViewSoftwareTitle_softwareName}"/>
+                            <h:outputText value="SoftwareDescription:"/>
+                            <h:outputText value="#{softwareController.selected.softwareDesc}" title="#{bundle.ViewSoftwareTitle_softwareDesc}"/>
+                            <h:outputText value="SoftwarePrice:"/>
+                            <h:outputText value="#{softwareController.selected.softwarePrice}" title="#{bundle.ViewSoftwareTitle_softwarePrice}"/>
+                            <h:outputText value="SoftwaresCompanyId:"/>
+                            <h:outputText value="#{softwareController.selected.softwareCId}" title="#{bundle.ViewSoftwareTitle_softwareCId}"/>
+                        </h:panelGrid>
+                        <br />
+                        <h:commandLink class="btn btn-danger" action="#{softwareController.destroyAndView}" value="#{bundle.ViewSoftwareDestroyLink}"/>
+                        <br />
+                        <br />
+                        <h:link outcome="Edit" class="btn btn-success es" value="#{bundle.ViewSoftwareEditLink}"/>
+                        <br />
+                        <h:commandLink class="btn btn-info es" action="#{softwareController.prepareCreate}" value="#{bundle.ViewSoftwareCreateLink}" />
+                        <br />
+                        <h:commandLink class="btn btn-primary es" action="#{softwareController.prepareList}" value="#{bundle.ViewSoftwareShowAllLink}"/>
+                        <br />
+                        <br />
+                       
+                    </c:if>
+                </c:if>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

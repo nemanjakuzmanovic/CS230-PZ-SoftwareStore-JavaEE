@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSoftwarecompanyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form class="fadeIn firstFaster">
+                <c:if test="#{login.loggedIn eq true}">
+                    <c:if test="#{login.admin eq true}">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Software's Company Name" for="scName" />
+                    <h:inputText id="scName" value="#{softwarecompanyController.selected.scName}" title="#{bundle.EditSoftwarecompanyTitle_scName}" required="true" requiredMessage="#{bundle.EditSoftwarecompanyRequiredMessage_scName}"/>
+                </h:panelGrid>
+                <h:commandLink class="btn btn-danger" action="#{softwarecompanyController.update}" value="#{bundle.EditSoftwarecompanySaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" class="btn btn-warning es" value="#{bundle.EditSoftwarecompanyViewLink}"/>
+                <br />
+                <h:commandLink class="btn btn-info" action="#{softwarecompanyController.prepareList}" value="#{bundle.EditSoftwarecompanyShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+               
+                </c:if>
+                    </c:if>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

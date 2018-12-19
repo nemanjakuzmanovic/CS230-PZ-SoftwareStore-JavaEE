@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSoftwareTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <c:if test="#{login.loggedIn eq true}">
+                   
+            <h:form styleClass="jsfcrud_list_form" class="fadeIn firstFaster">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSoftwareEmpty}" rendered="#{softwareController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{softwareController.items.rowCount > 0}">
+                    <h:outputText value="#{softwareController.pagination.pageFirstItem + 1}..#{softwareController.pagination.pageLastItem + 1}/#{softwareController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{softwareController.previous}" value="#{bundle.Previous} #{softwareController.pagination.pageSize}" rendered="#{softwareController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{softwareController.next}" value="#{bundle.Next} #{softwareController.pagination.pageSize}" rendered="#{softwareController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable class="table" value="#{softwareController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all">
+                        <c:if test="#{login.admin eq true}">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSoftwareTitle_softwareId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.softwareId}"/>
+                        </h:column>
+                        </c:if>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Software Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.softwareName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Software Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.softwareDesc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Software Price"/>
+                            </f:facet>
+                            <h:outputText value="$#{item.softwarePrice}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Software's Company Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.softwareCId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Software's Company Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.softwareCId.cName()}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>         
+                            <c:if test="#{login.admin eq false}">
+                            <h:commandLink class="btn btn-success" action="/orders/Create" value="Buy"/>
+                            <h:outputText value=" "/>
+                            </c:if>
+                            <c:if test="#{login.admin eq true}">
+                            <h:commandLink class="btn btn-warning" action="#{softwareController.prepareView}" value="#{bundle.ListSoftwareViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink class="btn btn-success" action="#{softwareController.prepareEdit}" value="#{bundle.ListSoftwareEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink class="btn btn-danger" action="#{softwareController.destroy}" value="#{bundle.ListSoftwareDestroyLink}"/>
+                             </c:if>
+                        </h:column>
+                       
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <c:if test="#{login.admin eq true}">
+                <h:commandLink class="btn btn-info" action="#{softwareController.prepareCreate}" value="#{bundle.ListSoftwareCreateLink}"/>
+                </c:if>
+                <br />
+                <br />
+            </h:form>
+           
+            </c:if>
+        </ui:define>
+    </ui:composition>
+
+</html>

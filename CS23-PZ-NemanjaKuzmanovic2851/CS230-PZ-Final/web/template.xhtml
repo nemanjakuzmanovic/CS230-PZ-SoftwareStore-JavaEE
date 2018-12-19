@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title><ui:insert name="title">CS230 - PZ NEMANJA KUZMANOVIC 2851</ui:insert></title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"></link>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </h:head>
+
+    <h:body>
+        <div class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>
+                            <h:link class="navbar-brand" outcome="/index" value="CS230-PZ"/>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li><h:link outcome="/index" value="Home"/></li>
+                                <c:if test="#{login.loggedIn eq false}">
+                                    <li><h:link outcome="/user/Create" value="Register"/></li>
+                                    <li><h:link outcome="/Login" value="Login"/></li>
+                                </c:if>
+                                <c:if test="#{login.loggedIn eq true}">
+                                    <c:if test="#{login.admin eq false}">
+                                          <li><h:link outcome="/software/List" value="All Products"/></li>
+                                          <li><h:link outcome="/orders/List" value="Bought Software"/></li>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{login.loggedIn eq true}">
+                                    <c:if test="#{login.admin eq true}">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Users
+                                                <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:link outcome="/user/Create" value="Add User"/></li>
+                                                <li><h:link outcome="/user/List" value="All User"/></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Co.
+                                                <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:link outcome="/softwarecompany/Create" value="Add Software Company"/></li>
+                                                <li><h:link outcome="/softwarecompany/List" value="All Software Companies"/></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Software
+                                                <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:link outcome="/software/Create" value="Add Software"/></li>
+                                                <li><h:link outcome="/software/List" value="All Softwares"/></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Orders
+                                                <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><h:link outcome="/orders/Create" value="Add Order"/></li>
+                                                <li><h:link outcome="/orders/List" value="All Orders"/></li>
+                                            </ul>
+                                        </li>
+
+                                    </c:if>
+                                </c:if>
+                            </ul>
+                            <c:if test="#{login.loggedIn eq true}">
+
+                                <h:form class="navbar-right">
+                                    <ul class="nav navbar-nav">
+                                        <li><h:commandLink action="#{login.logout}" value="Logout"></h:commandLink></li>
+                                    </ul>
+                                </h:form>
+
+                            </c:if>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="container marketing pushBot">
+            <ui:insert name="body">Default Body</ui:insert>
+            <hr class="featurette-divider"/>
+            <!-- FOOTER -->
+            <footer>
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>Nemanja Kuzmanovic 2851 - CS230 - PZ</p>
+            </footer>
+
+        </div>
+    </h:body>
+
+</html>

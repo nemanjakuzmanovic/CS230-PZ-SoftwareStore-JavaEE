@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSoftwarecompanyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form class="fadeIn firstFaster">
+                <c:if test="#{login.loggedIn eq true}">
+                    <c:if test="#{login.admin eq true}">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Software's Company ID: "/>
+                            <h:outputText value="#{softwarecompanyController.selected.scId}" title="#{bundle.ViewSoftwarecompanyTitle_scId}"/>
+                            <h:outputText value="Software's Company Name: "/>
+                            <h:outputText value="#{softwarecompanyController.selected.scName}" title="#{bundle.ViewSoftwarecompanyTitle_scName}"/>
+                        </h:panelGrid>
+                        <br />
+                        <h:commandLink class="btn btn-danger" action="#{softwarecompanyController.destroyAndView}" value="#{bundle.ViewSoftwarecompanyDestroyLink}"/>
+                        <br />
+                        <br />
+                        <h:link class="btn btn-success es" outcome="Edit" value="#{bundle.ViewSoftwarecompanyEditLink}"/>
+                        <br />
+                        <h:commandLink class="btn btn-info es" action="#{softwarecompanyController.prepareCreate}" value="#{bundle.ViewSoftwarecompanyCreateLink}" />
+                        <br />
+                        <h:commandLink class="btn btn-primary es" action="#{softwarecompanyController.prepareList}" value="#{bundle.ViewSoftwarecompanyShowAllLink}"/>
+                        <br />
+                        <br />
+                        
+                    </c:if>
+                </c:if>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

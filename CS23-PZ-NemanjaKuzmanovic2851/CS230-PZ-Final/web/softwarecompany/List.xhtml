@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSoftwarecompanyTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form" class="fadeIn firstFaster">
+                <c:if test="#{login.loggedIn eq true}">
+                    <c:if test="#{login.admin eq true}">
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <h:outputText escape="false" value="#{bundle.ListSoftwarecompanyEmpty}" rendered="#{softwarecompanyController.items.rowCount == 0}"/>
+                        <h:panelGroup rendered="#{softwarecompanyController.items.rowCount > 0}">
+                            <h:outputText value="#{softwarecompanyController.pagination.pageFirstItem + 1}..#{softwarecompanyController.pagination.pageLastItem + 1}/#{softwarecompanyController.pagination.itemsCount}"/>&nbsp;
+                            <h:commandLink action="#{softwarecompanyController.previous}" value="#{bundle.Previous} #{softwarecompanyController.pagination.pageSize}" rendered="#{softwarecompanyController.pagination.hasPreviousPage}"/>&nbsp;
+                            <h:commandLink action="#{softwarecompanyController.next}" value="#{bundle.Next} #{softwarecompanyController.pagination.pageSize}" rendered="#{softwarecompanyController.pagination.hasNextPage}"/>&nbsp;
+                            <h:dataTable class="table" value="#{softwarecompanyController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Software's Company ID"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.scId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Software's Company Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.scName}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="&nbsp;"/>
+                                    </f:facet>
+                                    <h:commandLink class="btn btn-warning" action="#{softwarecompanyController.prepareView}" value="#{bundle.ListSoftwarecompanyViewLink}"/>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink class="btn btn-success" action="#{softwarecompanyController.prepareEdit}" value="#{bundle.ListSoftwarecompanyEditLink}"/>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink class="btn btn-danger" action="#{softwarecompanyController.destroy}" value="#{bundle.ListSoftwarecompanyDestroyLink}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                        <br />
+                        <h:commandLink class="btn btn-info" action="#{softwarecompanyController.prepareCreate}" value="#{bundle.ListSoftwarecompanyCreateLink}"/>
+                        <br />
+                        <br />
+                        
+                    </c:if>
+                </c:if>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

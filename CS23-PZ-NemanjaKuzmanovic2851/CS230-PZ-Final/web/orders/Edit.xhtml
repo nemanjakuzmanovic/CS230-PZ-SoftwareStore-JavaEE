@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOrdersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form class="fadeIn firstFaster">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="User's ID: " for="userOrderId" />
+                    <h:selectOneMenu class="btn btn-primary es" id="userOrderId" value="#{ordersController.selected.userOrderId}" title="#{bundle.EditOrdersTitle_userOrderId}" required="true" requiredMessage="#{bundle.EditOrdersRequiredMessage_userOrderId}">
+                        <f:selectItems class="btn btn-primary" value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Software's ID: " for="softwareOrderId" />
+                    <h:selectOneMenu class="btn btn-info" id="softwareOrderId" value="#{ordersController.selected.softwareOrderId}" title="#{bundle.EditOrdersTitle_softwareOrderId}" required="true" requiredMessage="#{bundle.EditOrdersRequiredMessage_softwareOrderId}">
+                        <f:selectItems class="btn btn-info" value="#{softwareController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink class="btn btn-danger" action="#{ordersController.update}" value="#{bundle.EditOrdersSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" class="btn btn-warning es" value="#{bundle.EditOrdersViewLink}"/>
+                <br />
+                <h:commandLink class="btn btn-info" action="#{ordersController.prepareList}" value="#{bundle.EditOrdersShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
